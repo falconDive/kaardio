@@ -1,0 +1,8 @@
+{
+    "APP_NAME": "Kaardio",
+    "ENVIRONMENT": "production",
+    "SQLALCHEMY_DATABASE_URI":"mysql://root:Burlskool10@pocdbinstanceid.czb5vnspjiq8.us-east-1.rds.amazonaws.com/pocdb",
+    "SQLALCHEMY_TRACK_MODIFICATIONS":"False",
+    "SECRET_KEY":"S#perS3crEt_007",
+    "E0030":"Wrong user or password" 
+}

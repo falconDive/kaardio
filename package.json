@@ -1,0 +1,22 @@
+{
+  "name": "kaardio",
+  "mastertemplate": "boilerplate-code-flask-dashboard",
+  "version": "1.0.1",
+  "description": "Kaardio Project",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/"
+  },
+  "bugs": {
+      "url": "https://www.vderive.com",
+      "email": "govind@vderive.com"
+  },
+  "author": "VDerive",
+  "engines": {
+      "node": ">=10.0.0"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
