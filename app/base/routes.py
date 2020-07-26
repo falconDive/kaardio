@@ -103,7 +103,7 @@ def register():
         match = re.search(pattern, email)
         if not match:
             return render_template( 'accounts/register.html', 
-                                    msg='Please enter correct email ',
+                                    msg='Please enter valid email ',
                                     success=False,
                                     form=create_account_form)            
 
