@@ -123,7 +123,7 @@ def register():
         send_account_activation_email(user.email)
 
         return render_template( 'accounts/register.html', 
-                                msg='an activation link is sent to' + user.email, 
+                                msg='an activation link is sent to ' + user.email, 
                                 success=True,
                                 form=create_account_form)
 
