@@ -38,13 +38,13 @@
                     <span class="text-danger">{{ msg | safe }}</span>                
                 {% endif %}                
             {% else %}
-            <span>
+            <span id="msg">
                 Add your credentials
             </span>
             {% endif %}            
         </p>
         {% if success %}
-        
+      
 
         {% else %}
         <form role="form" method="post" action="">
@@ -123,6 +123,28 @@
   <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    //var username_input = $('#username');
+    //var username_status = $('#username-status');
+    $(document).ready(function(){
+      $('#email_create').on('focusout', function () {
+      
+      var emailinput = $('#email_create').val();
+      var pattern = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+
+      if(!pattern.test(emailinput)) {
+        console.log('not a valid e-mail address');
+        $('#msg').text("Please enter valid email"); 
+        $('#msg').addClass("text-danger");
+      }else{
+        $('#msg').text("Add your credentials"); 
+        $('#msg').removeClass("text-danger");
+      }
+      });
+    });
+    </script>
+    
 
 {% endblock javascripts %}
 
