@@ -92,12 +92,20 @@ def register():
                                     msg='Make sure your password has a special symbol [ _ @  character in it',
                                     success=False,
                                     form=create_account_form)                           
-        print(not bool(request.form.getlist('agreeTerms')))
+        
         if not bool(request.form.getlist('agreeTerms')):
             return render_template( 'accounts/register.html', 
-                                    msg='Please agree to terms.',
+                                    msg='Please check agree to terms.',
                                     success=False,
                                     form=create_account_form)                                                 
+
+        pattern = r"\"?([-a-zA-Z0-9.`?{}]+@\w+\.\w+)\"?" 
+        match = re.search(pattern, email)
+        if not match:
+            return render_template( 'accounts/register.html', 
+                                    msg='Please enter correct email ',
+                                    success=False,
+                                    form=create_account_form)            
 
         # Check email exists
         user = User.query.filter_by(email=email).first()
@@ -115,7 +123,7 @@ def register():
         send_account_activation_email(user.email)
 
         return render_template( 'accounts/register.html', 
-                                msg='User created please <a href="/login">login</a>', 
+                                msg='an activation link is sent to' + user.email, 
                                 success=True,
                                 form=create_account_form)
 
@@ -147,14 +155,25 @@ def reset():
         try:
             user = User.query.filter_by(email=reset_form.email.data).first_or_404()
             send_password_reset_email(user.email)
-            return render_template( 'accounts/resetpassword.html', msg='an email is sent to '+user.email+' with instructions on reset', form=reset_form)
+            return render_template( 'accounts/resetpassword.html', 
+                                        msg='an email is sent to '+user.email+' with instructions on reset', 
+                                        success=True,
+                                        form=reset_form)
         except Exception as error:
             if error.code == 404:
-                return render_template( 'accounts/resetpassword.html', msg='Invalid email address!.', form=reset_form)
+                return render_template( 'accounts/resetpassword.html',
+                                        msg='Invalid email address!.', 
+                                        success=False,
+                                        form=reset_form)
             else: 
-                return render_template( 'accounts/resetpassword.html', msg='Problem processing request!.', form=reset_form)
+                return render_template( 'accounts/resetpassword.html', 
+                                        msg='Problem processing request!.', 
+                                        success=False,
+                                        form=reset_form)
 
-    return render_template('accounts/resetpassword.html', form=reset_form)
+    return render_template('accounts/resetpassword.html', 
+                                        success=False,
+                                        form=reset_form)
 
 def send_password_reset_email(user_email):
     send_email('Password Reset Request',user_email)
